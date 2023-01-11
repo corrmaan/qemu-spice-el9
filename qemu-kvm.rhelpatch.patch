@@ -1,0 +1,12 @@
+diff --git a/0005-Enable-disable-devices-for-RHEL.patch b/0005-Enable-disable-devices-for-RHEL.patch
+index 1ffbe97..4d6c332 100644
+--- a/0005-Enable-disable-devices-for-RHEL.patch
++++ b/0005-Enable-disable-devices-for-RHEL.patch
+@@ -252,6 +252,7 @@ index 0000000000..d0c9e66641
+ +CONFIG_PVPANIC_ISA=y
+ +CONFIG_PXB=y
+ +CONFIG_Q35=y
+++CONFIG_QXL=y
+ +CONFIG_RTL8139_PCI=y
+ +CONFIG_SCSI=y
+ +CONFIG_SERIAL=y

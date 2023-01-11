@@ -1,0 +1,128 @@
+diff --git a/qemu-kvm.spec b/qemu-kvm.spec
+index 6ee557d..8303856 100644
+--- a/qemu-kvm.spec
++++ b/qemu-kvm.spec
+@@ -12,6 +12,7 @@
+ %endif
+ 
+ %global have_usbredir 1
++%global have_spice    1
+ %global have_opengl   1
+ %global have_fdt      1
+ %global have_modules_load 0
+@@ -82,6 +83,7 @@
+ %ifarch x86_64
+     %global kvm_target    x86_64
+ %else
++    %global have_spice   0
+     %global have_opengl  0
+ %endif
+ %ifarch %{power64}
+@@ -108,6 +110,9 @@
+ #Versions of various parts:
+ 
+ %global requires_all_modules                                     \
++%if %{have_spice}                                                \
++Requires: %{name}-ui-spice = %{epoch}:%{version}-%{release}      \
++%endif                                                           \
+ %if %{have_opengl}                                               \
+ Requires: %{name}-ui-opengl = %{epoch}:%{version}-%{release}     \
+ Requires: %{name}-ui-egl-headless = %{epoch}:%{version}-%{release}     \
+@@ -131,8 +136,6 @@ Requires: %{name}-device-usb-redirect = %{epoch}:%{version}-%{release}   \
+ Requires: %{name}-block-rbd = %{epoch}:%{version}-%{release}     \
+ Requires: %{name}-audio-pa = %{epoch}:%{version}-%{release}
+ 
+-# Since SPICE is removed from RHEL-9, the following Obsoletes:
+-# removes {name}-ui-spice for upgrades from RHEL-8
+ # The "<= {version}" assumes RHEL-9 version >= RHEL-8 version (in
+ # other words RHEL-9 rebases are done together/before RHEL-8 ones)
+ 
+@@ -142,7 +145,6 @@ Requires: %{name}-audio-pa = %{epoch}:%{version}-%{release}
+ # Note: ssh driver wasn't removed yet just disabled due to late handling
+ 
+ %global obsoletes_some_modules                                  \
+-Obsoletes: %{name}-ui-spice <= %{epoch}:%{version}                       \
+ Obsoletes: %{name}-block-gluster <= %{epoch}:%{version}                  \
+ Obsoletes: %{name}-block-iscsi <= %{epoch}:%{version}                    \
+ Obsoletes: %{name}-block-ssh <= %{epoch}:%{version}                    \
+@@ -151,7 +153,7 @@ Obsoletes: %{name}-block-ssh <= %{epoch}:%{version}                    \
+ Summary: QEMU is a machine emulator and virtualizer
+ Name: qemu-kvm
+ Version: 7.0.0
+-Release: 13%{?rcrel}%{?dist}%{?cc_suffix}
++Release: 14%{?rcrel}%{?dist}%{?cc_suffix}
+ # Epoch because we pushed a qemu-1.0 package. AIUI this can't ever be dropped
+ # Epoch 15 used for RHEL 8
+ # Epoch 17 used for RHEL 9 (due to release versioning offset in RHEL 8.5)
+@@ -565,7 +567,13 @@ BuildRequires: pkgconfig(gbm)
+ BuildRequires: perl-Test-Harness
+ BuildRequires: libslirp-devel
+ BuildRequires: pulseaudio-libs-devel
++%if %{have_spice}
+ BuildRequires: spice-protocol
++BuildRequires: spice-server-devel
++BuildRequires: libcacard-devel
++# For smartcard NSS support
++BuildRequires: nss-devel
++%endif
+ 
+ # Requires for qemu-kvm package
+ Requires: %{name}-core = %{epoch}:%{version}-%{release}
+@@ -804,6 +812,18 @@ Obsoletes: %{name}-hw-usbredir <= %{epoch}:%{version}
+ This package provides usbredir support.
+ %endif
+ 
++%if %{have_spice}
++%package  ui-spice
++Summary: QEMU spice support
++Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
++%if %{have_opengl}
++Requires: %{name}-ui-opengl%{?_isa} = %{epoch}:%{version}-%{release}
++%endif
++
++%description ui-spice
++This package provides spice support.
++%endif
++
+ %prep
+ %setup -q -n qemu-%{version}%{?rcstr}
+ %autopatch -p1
+@@ -1040,6 +1060,11 @@ run_configure \
+   --enable-tcg \
+   --enable-tools \
+   --enable-tpm \
++%if %{have_spice}
++  --enable-smartcard \
++  --enable-spice \
++  --enable-spice-protocol \
++%endif
+ %if %{have_usbredir}
+   --enable-usb-redir \
+ %endif
+@@ -1261,6 +1286,8 @@ rm -rf %{buildroot}%{_datadir}/%{name}/opensbi-riscv64-generic-fw_dynamic.*
+ rm -rf %{buildroot}%{_datadir}/%{name}/qemu-nsis.bmp
+ rm -rf %{buildroot}%{_datadir}/%{name}/npcm7xx_bootrom.bin
+ 
++rm -rf ${RPM_BUILD_ROOT}%{_libdir}/qemu-kvm/ui-spice-app.so
++
+ # Remove virtfs-proxy-helper files
+ rm -rf %{buildroot}%{_libexecdir}/virtfs-proxy-helper
+ rm -rf %{buildroot}%{_mandir}/man1/virtfs-proxy-helper*
+@@ -1525,6 +1552,17 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
+     %{_libdir}/%{name}/hw-usb-redirect.so
+ %endif
+ 
++%if 0%{have_spice}
++%files ui-spice
++    %{_libdir}/qemu-kvm/hw-usb-smartcard.so
++    %{_libdir}/qemu-kvm/audio-spice.so
++    %{_libdir}/qemu-kvm/ui-spice-core.so
++    %{_libdir}/qemu-kvm/chardev-spice.so
++%ifarch x86_64
++    %{_libdir}/qemu-kvm/hw-display-qxl.so
++%endif
++%endif
++
+ # endif !tools_only
+ %endif
+ 
