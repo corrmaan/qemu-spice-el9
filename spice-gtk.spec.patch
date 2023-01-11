@@ -1,0 +1,24 @@
+diff --git a/spice-gtk.spec b/spice-gtk.spec
+index 9bd79d1..32e1ed4 100644
+--- a/spice-gtk.spec
++++ b/spice-gtk.spec
+@@ -31,7 +31,9 @@ BuildRequires: gtk-doc
+ BuildRequires: vala
+ BuildRequires: usbutils
+ BuildRequires: libsoup-devel >= 2.49.91
++%if 0%{?fedora}
+ BuildRequires: libphodav-devel
++%endif
+ BuildRequires: lz4-devel
+ BuildRequires: gtk3-devel
+ BuildRequires: json-glib-devel
+@@ -120,6 +122,9 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+ %ifarch s390x # https://gitlab.freedesktop.org/spice/spice-gtk/issues/120
+   -Dusbredir=disabled \
+ %endif
++%if 0%{?rhel}
++  -Dwebdav=disabled \\
++%endif
+ %if 0%{?flatpak}
+   -Dpolkit=disabled
+ %else

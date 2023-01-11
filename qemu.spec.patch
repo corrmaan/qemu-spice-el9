@@ -1,0 +1,124 @@
+diff --git a/qemu.spec b/qemu.spec
+index b517668..9959e7b 100644
+--- a/qemu.spec
++++ b/qemu.spec
+@@ -6,7 +6,7 @@
+ %global libfdt_version 1.6.0
+ %global libseccomp_version 2.4.0
+ %global libusbx_version 1.0.23
+-%global meson_version 0.61.3
++%global meson_version 0.58.2
+ %global usbredir_version 0.7.1
+ %global ipxe_version 20200823-5.git4bd064de
+ 
+@@ -55,7 +55,7 @@
+ %global user_static 1
+ %if 0%{?rhel}
+ # EPEL/RHEL do not have required -static builddeps
+-%global user_static 0
++%global user_static 1
+ %endif
+ 
+ %global have_kvm 0
+@@ -75,7 +75,7 @@
+ %global have_spice 0
+ %endif
+ %if 0%{?rhel} >= 9
+-%global have_spice 0
++%global have_spice 1
+ %endif
+ 
+ # Matches xen ExclusiveArch
+@@ -87,14 +87,14 @@
+ %endif
+ 
+ %global have_liburing 0
+-%if 0%{?fedora}
++%if 0%{?rhel}
+ %ifnarch %{arm}
+ %global have_liburing 1
+ %endif
+ %endif
+ 
+ %global have_virgl 0
+-%if 0%{?fedora}
++%if 0%{?rhel}
+ %global have_virgl 1
+ %endif
+ 
+@@ -114,7 +114,7 @@
+ %global have_dbus_display 0
+ %endif
+ 
+-%global have_sdl_image %{defined fedora}
++%global have_sdl_image %{defined rhel}
+ %global have_fdt 1
+ %global have_opengl 1
+ %global have_usbredir 1
+@@ -151,7 +151,7 @@
+ 
+ %define have_libcacard 1
+ %if 0%{?rhel} >= 9
+-%define have_libcacard 0
++%define have_libcacard 1
+ %endif
+ 
+ # LTO still has issues with qemu on armv7hl and aarch64
+@@ -316,7 +316,7 @@ Summary: QEMU is a FAST! processor emulator
+ Name: qemu
+ Version: 7.2.0
+ Release: %{baserelease}%{?rcrel}%{?dist}
+-Epoch: 2
++Epoch: 1024
+ License: GPLv2 and BSD and MIT and CC-BY
+ URL: http://www.qemu.org/
+ 
+@@ -1464,7 +1464,6 @@ mkdir -p %{static_builddir}
+   --disable-linux-user             \\\
+   --disable-live-block-migration   \\\
+   --disable-lto                    \\\
+-  --disable-lzfse                  \\\
+   --disable-lzo                    \\\
+   --disable-malloc-trim            \\\
+   --disable-membarrier             \\\
+@@ -1559,7 +1558,7 @@ run_configure() {
+         --with-pkgversion="%{name}-%{version}-%{release}" \
+         --with-suffix="%{name}" \
+         --firmwarepath="%firmwaredirs" \
+-        --meson="%{__meson}" \
++        --meson=internal \
+         --enable-trace-backends=dtrace \
+         --with-coroutine=ucontext \
+         --with-git=git \
+@@ -1681,6 +1680,7 @@ run_configure \
+   --enable-curses \
+   --enable-dmg \
+   --enable-fuse \
++  --enable-fuse-lseek \
+   --enable-gio \
+ %if %{have_block_gluster}
+   --enable-glusterfs \
+@@ -1695,7 +1695,6 @@ run_configure \
+   --enable-linux-io-uring \
+ %endif
+   --enable-linux-user \
+-  --enable-live-block-migration \
+   --enable-multiprocess \
+   --enable-vnc-jpeg \
+   --enable-parallels \
+@@ -1705,7 +1704,6 @@ run_configure \
+   --enable-qcow1 \
+   --enable-qed \
+   --enable-qom-cast-debug \
+-  --enable-replication \
+   --enable-sdl \
+ %if %{have_sdl_image}
+   --enable-sdl-image \
+@@ -2224,6 +2222,7 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
+ 
+ %files block-dmg
+ %{_libdir}/%{name}/block-dmg-bz2.so
++%{_libdir}/%{name}/block-dmg-lzfse.so
+ %if %{have_block_gluster}
+ %files block-gluster
+ %{_libdir}/%{name}/block-gluster.so
