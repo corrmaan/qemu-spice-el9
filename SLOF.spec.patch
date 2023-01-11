@@ -1,0 +1,18 @@
+diff --git a/SLOF.spec b/SLOF.spec
+index 638fd88..2341a15 100644
+--- a/SLOF.spec
++++ b/SLOF.spec
+@@ -6,13 +6,8 @@
+ # Disable debuginfo because it is of no use to us.
+ %global debug_package %{nil}
+ 
+-%if 0%{?fedora:1}
+ %define cross 1
+ %define targetdir qemu
+-%else
+-%define targetdir qemu-kvm
+-%endif
+-
+ %global gittag qemu-slof-%{gittagdate}
+ 
+ Name:           SLOF
