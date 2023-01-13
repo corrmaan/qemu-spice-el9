@@ -20,7 +20,7 @@ cd ~/rpmbuild/SOURCES/
 git init && git add -A && git commit -m "Initial commit"
 
 patch -p1 < ${OLDPWD}/qemu-kvm.rhelpatch.patch
-git add -A && git commit -m "Enable QXL"
+git add -A && git commit -m "Enable QXL and IVSHMEM"
 
 cd -
 
