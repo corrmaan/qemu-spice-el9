@@ -50,7 +50,7 @@ index 6ee557d..8303856 100644
  Name: qemu-kvm
  Version: 7.0.0
 -Release: 13%{?rcrel}%{?dist}%{?cc_suffix}
-+Release: 14%{?rcrel}%{?dist}%{?cc_suffix}
++Release: 99%{?rcrel}%{?dist}%{?cc_suffix}
  # Epoch because we pushed a qemu-1.0 package. AIUI this can't ever be dropped
  # Epoch 15 used for RHEL 8
  # Epoch 17 used for RHEL 9 (due to release versioning offset in RHEL 8.5)

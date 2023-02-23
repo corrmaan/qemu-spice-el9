@@ -7,7 +7,7 @@ index 16755d1..9e1a0c6 100644
  Name: virt-manager
  Version: 4.0.0
 -Release: 1%{?dist}%{?extra_release}
-+Release: 2%{?dist}%{?extra_release}
++Release: 99%{?dist}%{?extra_release}
  %global verrel %{version}-%{release}
  
  Summary: Desktop tool for managing virtual machines via libvirt
