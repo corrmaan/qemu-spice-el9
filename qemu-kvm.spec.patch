@@ -1,5 +1,5 @@
 diff --git a/qemu-kvm.spec b/qemu-kvm.spec
-index 6ee557d..8303856 100644
+index 2e2997c..ab59bc8 100644
 --- a/qemu-kvm.spec
 +++ b/qemu-kvm.spec
 @@ -12,6 +12,7 @@
@@ -49,12 +49,12 @@ index 6ee557d..8303856 100644
  Summary: QEMU is a machine emulator and virtualizer
  Name: qemu-kvm
  Version: 7.0.0
--Release: 13%{?rcrel}%{?dist}%{?cc_suffix}
-+Release: 99%{?rcrel}%{?dist}%{?cc_suffix}
+-Release: 13%{?rcrel}%{?dist}%{?cc_suffix}.2
++Release: 99%{?rcrel}%{?dist}%{?cc_suffix}.2
  # Epoch because we pushed a qemu-1.0 package. AIUI this can't ever be dropped
  # Epoch 15 used for RHEL 8
  # Epoch 17 used for RHEL 9 (due to release versioning offset in RHEL 8.5)
-@@ -565,7 +567,13 @@ BuildRequires: pkgconfig(gbm)
+@@ -569,7 +571,13 @@ BuildRequires: pkgconfig(gbm)
  BuildRequires: perl-Test-Harness
  BuildRequires: libslirp-devel
  BuildRequires: pulseaudio-libs-devel
@@ -68,7 +68,7 @@ index 6ee557d..8303856 100644
  
  # Requires for qemu-kvm package
  Requires: %{name}-core = %{epoch}:%{version}-%{release}
-@@ -804,6 +812,18 @@ Obsoletes: %{name}-hw-usbredir <= %{epoch}:%{version}
+@@ -808,6 +816,18 @@ Obsoletes: %{name}-hw-usbredir <= %{epoch}:%{version}
  This package provides usbredir support.
  %endif
  
@@ -87,7 +87,7 @@ index 6ee557d..8303856 100644
  %prep
  %setup -q -n qemu-%{version}%{?rcstr}
  %autopatch -p1
-@@ -1040,6 +1060,11 @@ run_configure \
+@@ -1044,6 +1064,11 @@ run_configure \
    --enable-tcg \
    --enable-tools \
    --enable-tpm \
@@ -99,7 +99,7 @@ index 6ee557d..8303856 100644
  %if %{have_usbredir}
    --enable-usb-redir \
  %endif
-@@ -1261,6 +1286,8 @@ rm -rf %{buildroot}%{_datadir}/%{name}/opensbi-riscv64-generic-fw_dynamic.*
+@@ -1265,6 +1290,8 @@ rm -rf %{buildroot}%{_datadir}/%{name}/opensbi-riscv64-generic-fw_dynamic.*
  rm -rf %{buildroot}%{_datadir}/%{name}/qemu-nsis.bmp
  rm -rf %{buildroot}%{_datadir}/%{name}/npcm7xx_bootrom.bin
  
@@ -108,7 +108,7 @@ index 6ee557d..8303856 100644
  # Remove virtfs-proxy-helper files
  rm -rf %{buildroot}%{_libexecdir}/virtfs-proxy-helper
  rm -rf %{buildroot}%{_mandir}/man1/virtfs-proxy-helper*
-@@ -1525,6 +1552,17 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
+@@ -1529,6 +1556,17 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
      %{_libdir}/%{name}/hw-usb-redirect.so
  %endif
  
