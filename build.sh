@@ -44,6 +44,7 @@ sudo dnf -y builddep spice-protocol.spec
 rpmbuild -ba spice-protocol.spec
 
 sudo dnf -y install \
+    ~/rpmbuild/RPMS/noarch/spice-protocol-*.rpm \
     ~/rpmbuild/RPMS/x86_64/libcacard-2.*.rpm \
     ~/rpmbuild/RPMS/x86_64/libcacard-devel-2.*.rpm
 
