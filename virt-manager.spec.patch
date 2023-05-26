@@ -1,17 +1,8 @@
 diff --git a/virt-manager.spec b/virt-manager.spec
-index 16755d1..9e1a0c6 100644
+index 794629f..d5fbc9f 100644
 --- a/virt-manager.spec
 +++ b/virt-manager.spec
-@@ -8,7 +8,7 @@
- 
- Name: virt-manager
- Version: 4.0.0
--Release: 1%{?dist}%{?extra_release}
-+Release: 99%{?dist}%{?extra_release}
- %global verrel %{version}-%{release}
- 
- Summary: Desktop tool for managing virtual machines via libvirt
-@@ -27,6 +27,7 @@ Requires: python3-gobject >= 3.31.3
+@@ -32,6 +32,7 @@ Requires: python3-gobject >= 3.31.3
  Requires: gtk3 >= 3.22.0
  Requires: libvirt-glib >= 0.0.9
  Requires: gtk-vnc2
@@ -19,7 +10,7 @@ index 16755d1..9e1a0c6 100644
  
  # We can work with gtksourceview 3 or gtksourceview4, pick the latest one
  Requires: gtksourceview4
-@@ -130,7 +131,7 @@ git config gc.auto 0
+@@ -135,7 +136,7 @@ git config gc.auto 0
  
  ./setup.py configure \
      %{?_default_hvs} \
