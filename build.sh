@@ -7,8 +7,8 @@ sudo dnf -y update
 sudo dnf -y install gcc rpm-build rpm-devel rpmlint make python3 bash coreutils diffutils patch rpmdevtools
 
 dnf -y download --disablerepo=* \
-    --repofrompath="fc36,https://download.fedoraproject.org/pub/fedora/linux/releases/36/Everything/source/tree/" \
-    --source spice-gtk spice spice-protocol libcacard
+    --repofrompath="fc36,http://archives.fedoraproject.org/pub/archive/fedora/linux/releases/36/Everything/source/tree/" \
+    --source spice-gtk spice spice-protocol
 dnf -y download --disablerepo=* --enablerepo=appstream --source virt-manager qemu-kvm
 
 rpmdev-setuptree
@@ -37,16 +37,11 @@ git add spice-gtk.spec && git commit -m "spice-gtk.spec patch"
 patch -p1 < ${OLDPWD}/virt-manager.spec.patch
 git add virt-manager.spec && git commit -m "virt-manager.spec patch"
 
-sudo dnf -y builddep libcacard.spec
-rpmbuild -ba libcacard.spec
-
 sudo dnf -y builddep spice-protocol.spec
 rpmbuild -ba spice-protocol.spec
 
 sudo dnf -y install \
-    ~/rpmbuild/RPMS/noarch/spice-protocol-*.rpm \
-    ~/rpmbuild/RPMS/x86_64/libcacard-2.*.rpm \
-    ~/rpmbuild/RPMS/x86_64/libcacard-devel-2.*.rpm
+    ~/rpmbuild/RPMS/noarch/spice-protocol-*.rpm
 
 sudo dnf -y builddep spice.spec
 rpmbuild -ba spice.spec
@@ -63,5 +58,7 @@ rpmbuild -ba spice-gtk.spec
 
 sudo dnf -y builddep virt-manager.spec
 rpmbuild -ba virt-manager.spec
+
+sudo dnf -y remove spice-protocol spice-server spice-server-devel
 
 cd -
