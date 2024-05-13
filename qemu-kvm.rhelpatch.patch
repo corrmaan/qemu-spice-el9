@@ -1,17 +1,17 @@
 diff --git a/0005-Enable-disable-devices-for-RHEL.patch b/0005-Enable-disable-devices-for-RHEL.patch
-index 14dd3f9..32de554 100644
+index 97c53b4..d20c341 100644
 --- a/0005-Enable-disable-devices-for-RHEL.patch
 +++ b/0005-Enable-disable-devices-for-RHEL.patch
-@@ -220,7 +220,7 @@ new file mode 100644
- index 0000000000..668b2d0e18
+@@ -245,7 +245,7 @@ new file mode 100644
+ index 0000000000..ce5be73633
  --- /dev/null
  +++ b/configs/devices/x86_64-softmmu/x86_64-rh-devices.mak
--@@ -0,0 +1,109 @@
-+@@ -0,0 +1,111 @@
+-@@ -0,0 +1,110 @@
++@@ -0,0 +1,112 @@
  +include ../rh-virtio.mak
  +
  +CONFIG_ACPI=y
-@@ -264,6 +264,7 @@ index 0000000000..668b2d0e18
+@@ -290,6 +290,7 @@ index 0000000000..ce5be73633
  +CONFIG_ISA_BUS=y
  +CONFIG_ISA_DEBUG=y
  +CONFIG_ISA_TESTDEV=y
@@ -19,7 +19,7 @@ index 14dd3f9..32de554 100644
  +CONFIG_LPC_ICH9=y
  +CONFIG_MC146818RTC=y
  +CONFIG_MEM_DEVICE=y
-@@ -286,6 +287,7 @@ index 0000000000..668b2d0e18
+@@ -312,6 +313,7 @@ index 0000000000..ce5be73633
  +CONFIG_PVPANIC_ISA=y
  +CONFIG_PXB=y
  +CONFIG_Q35=y

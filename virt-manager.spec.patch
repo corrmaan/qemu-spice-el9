@@ -1,8 +1,8 @@
 diff --git a/virt-manager.spec b/virt-manager.spec
-index 794629f..d5fbc9f 100644
+index 5b9250a..c306efc 100644
 --- a/virt-manager.spec
 +++ b/virt-manager.spec
-@@ -32,6 +32,7 @@ Requires: python3-gobject >= 3.31.3
+@@ -34,6 +34,7 @@ Requires: python3-gobject >= 3.31.3
  Requires: gtk3 >= 3.22.0
  Requires: libvirt-glib >= 0.0.9
  Requires: gtk-vnc2
@@ -10,7 +10,7 @@ index 794629f..d5fbc9f 100644
  
  # We can work with gtksourceview 3 or gtksourceview4, pick the latest one
  Requires: gtksourceview4
-@@ -135,7 +136,7 @@ git config gc.auto 0
+@@ -137,7 +138,7 @@ git config gc.auto 0
  
  ./setup.py configure \
      %{?_default_hvs} \
