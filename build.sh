@@ -13,7 +13,7 @@ cd ${TMPDIR}
     dnf -y download --disablerepo=* \
         --repofrompath="fc36,http://archives.fedoraproject.org/pub/archive/fedora/linux/releases/36/Everything/source/tree/" \
         --source spice-gtk spice spice-protocol
-    dnf -y download --disablerepo=* --enablerepo=appstream --source virt-manager qemu-kvm
+    dnf -y download --disablerepo=* --enablerepo=appstream --source seavgabios-bin qemu-kvm virt-manager 
 
     rpm -ivh *.src.rpm
 
@@ -22,14 +22,19 @@ cd -
 cd ~/rpmbuild/SOURCES/
 
     patch -p1 < ${BASEDIR}/qemu-kvm.rhelpatch.patch
+    patch -p1 < ${BASEDIR}/seabios.qxl.patch
 
 cd -
 
 cd ~/rpmbuild/SPECS/
 
     patch -p1 < ${BASEDIR}/qemu-kvm.spec.patch
+    patch -p1 < ${BASEDIR}/seabios.spec.patch
     patch -p1 < ${BASEDIR}/spice-gtk.spec.patch
     patch -p1 < ${BASEDIR}/virt-manager.spec.patch
+
+    sudo dnf -y builddep seabios.spec
+    rpmbuild -ba seabios.spec
 
     sudo dnf -y builddep spice-protocol.spec
     rpmbuild -ba spice-protocol.spec
