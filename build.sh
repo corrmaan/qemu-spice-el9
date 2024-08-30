@@ -13,7 +13,7 @@ cd ${TMPDIR}
     dnf -y download --disablerepo=* \
         --repofrompath="fc36,http://archives.fedoraproject.org/pub/archive/fedora/linux/releases/36/Everything/source/tree/" \
         --source spice-gtk spice spice-protocol
-    dnf -y download --disablerepo=* --enablerepo=appstream --source seavgabios-bin qemu-kvm virt-manager 
+    dnf -y download --disablerepo=* --enablerepo=appstream --source seavgabios-bin qemu-kvm virt-manager
 
     rpm -ivh *.src.rpm
 
@@ -50,7 +50,7 @@ cd ~/rpmbuild/SPECS/
         ~/rpmbuild/RPMS/x86_64/spice-server-devel-0.*.rpm
 
     sudo dnf -y builddep qemu-kvm.spec
-    rpmbuild -ba qemu-kvm.spec
+    rpmbuild -ba --define='distsuffix _4' qemu-kvm.spec
 
     sudo dnf -y builddep spice-gtk.spec
     rpmbuild -ba spice-gtk.spec
