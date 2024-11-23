@@ -50,7 +50,7 @@ cd ~/rpmbuild/SPECS/
         ~/rpmbuild/RPMS/x86_64/spice-server-devel-0.*.rpm
 
     sudo dnf -y builddep qemu-kvm.spec
-    rpmbuild -ba --define='distsuffix _4' qemu-kvm.spec
+    rpmbuild -ba --define='distsuffix _5' qemu-kvm.spec
 
     sudo dnf -y builddep spice-gtk.spec
     rpmbuild -ba spice-gtk.spec
