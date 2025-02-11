@@ -1,5 +1,5 @@
 diff --git a/seabios.spec b/seabios.spec
-index 4b10da0..6441cbb 100644
+index 2ce5ae1..5fc65c3 100644
 --- a/seabios.spec
 +++ b/seabios.spec
 @@ -10,6 +10,7 @@ Source0:        https://code.coreboot.org/p/seabios/downloads/get/seabios-1.16.3
@@ -10,7 +10,7 @@ index 4b10da0..6441cbb 100644
  Source13:       config.vga-stdvga
  Source18:       config.seabios-256k
  Source19:       config.vga-virtio
-@@ -108,7 +109,7 @@ build_bios %{_sourcedir}/config.seabios-256k bios.bin bios-256k.bin
+@@ -110,7 +111,7 @@ build_bios %{_sourcedir}/config.seabios-256k bios.bin bios-256k.bin
  
  
  # seavgabios
