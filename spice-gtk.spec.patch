@@ -1,5 +1,5 @@
 diff --git a/spice-gtk.spec b/spice-gtk.spec
-index 9bd79d1..29f332e 100644
+index 9bd79d1..f6fb37a 100644
 --- a/spice-gtk.spec
 +++ b/spice-gtk.spec
 @@ -31,7 +31,9 @@ BuildRequires: gtk-doc
@@ -12,7 +12,11 @@ index 9bd79d1..29f332e 100644
  BuildRequires: lz4-devel
  BuildRequires: gtk3-devel
  BuildRequires: json-glib-devel
-@@ -120,6 +122,9 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+@@ -117,9 +119,13 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+ 
+ %meson \
+   -Dbuiltin-mjpeg=false \
++  -Dgtk_doc=disabled \
  %ifarch s390x # https://gitlab.freedesktop.org/spice/spice-gtk/issues/120
    -Dusbredir=disabled \
  %endif
@@ -22,3 +26,11 @@ index 9bd79d1..29f332e 100644
  %if 0%{?flatpak}
    -Dpolkit=disabled
  %else
+@@ -165,7 +171,6 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+ %{_includedir}/spice-client-glib-2.0
+ %{_libdir}/pkgconfig/spice-client-glib-2.0.pc
+ %{_datadir}/gir-1.0/SpiceClientGLib-2.0.gir
+-%doc %{_datadir}/gtk-doc/html/*
+ 
+ %files -n spice-gtk3
+ %{_libdir}/libspice-client-gtk-3.0.so.*
