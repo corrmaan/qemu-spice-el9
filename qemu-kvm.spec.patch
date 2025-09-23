@@ -1,5 +1,5 @@
 diff --git a/qemu-kvm.spec b/qemu-kvm.spec
-index 15b03f2..e339a6c 100644
+index 5390a45..eb01b35 100644
 --- a/qemu-kvm.spec
 +++ b/qemu-kvm.spec
 @@ -12,6 +12,7 @@
@@ -45,7 +45,7 @@ index 15b03f2..e339a6c 100644
  Obsoletes: %{name}-block-gluster <= %{epoch}:%{version}                  \
  Obsoletes: %{name}-block-iscsi <= %{epoch}:%{version}                    \
  Obsoletes: %{name}-block-ssh <= %{epoch}:%{version}                    \
-@@ -617,7 +619,13 @@ BuildRequires: pkgconfig(gbm)
+@@ -623,7 +625,13 @@ BuildRequires: pkgconfig(gbm)
  BuildRequires: perl-Test-Harness
  BuildRequires: libslirp-devel
  BuildRequires: pulseaudio-libs-devel
@@ -59,7 +59,7 @@ index 15b03f2..e339a6c 100644
  BuildRequires: capstone-devel
  BuildRequires: python3-tomli
  
-@@ -858,6 +866,18 @@ Obsoletes: %{name}-hw-usbredir <= %{epoch}:%{version}
+@@ -864,6 +872,18 @@ Obsoletes: %{name}-hw-usbredir <= %{epoch}:%{version}
  This package provides usbredir support.
  %endif
  
@@ -78,7 +78,7 @@ index 15b03f2..e339a6c 100644
  %package  ui-dbus
  Summary: QEMU D-Bus UI driver
  Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
-@@ -1114,6 +1134,11 @@ run_configure \
+@@ -1120,6 +1140,11 @@ run_configure \
    --enable-tcg \
    --enable-tools \
    --enable-tpm \
@@ -90,7 +90,7 @@ index 15b03f2..e339a6c 100644
  %if %{have_usbredir}
    --enable-usb-redir \
  %endif
-@@ -1329,6 +1354,8 @@ rm -rf %{buildroot}%{_datadir}/%{name}/opensbi-riscv64-generic-fw_dynamic.*
+@@ -1335,6 +1360,8 @@ rm -rf %{buildroot}%{_datadir}/%{name}/opensbi-riscv64-generic-fw_dynamic.*
  rm -rf %{buildroot}%{_datadir}/%{name}/qemu-nsis.bmp
  rm -rf %{buildroot}%{_datadir}/%{name}/npcm7xx_bootrom.bin
  
@@ -99,7 +99,7 @@ index 15b03f2..e339a6c 100644
  # Remove virtfs-proxy-helper files
  rm -rf %{buildroot}%{_libexecdir}/virtfs-proxy-helper
  rm -rf %{buildroot}%{_mandir}/man1/virtfs-proxy-helper*
-@@ -1599,6 +1626,17 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
+@@ -1605,6 +1632,17 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
      %{_libdir}/%{name}/hw-usb-redirect.so
  %endif
  
