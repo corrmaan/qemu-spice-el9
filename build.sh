@@ -26,8 +26,11 @@ cd ~/rpmbuild/SOURCES/
 
     git init && git add -A && git commit -m "Initial commit"
 
-    patch -p1 < ${BASEDIR}/qemu-kvm.rhelpatch.patch
-    git add -A && git commit -m "qemu-kvm.rhelpatch.patch"
+    patch -p1 < ${BASEDIR}/qemu-kvm.kvm-redhat-enable-CONFIG_SPICE.patch
+    git add -A && git commit -m "qemu-kvm.kvm-redhat-enable-CONFIG_SPICE.patch"
+
+    patch -p1 < ${BASEDIR}/qemu-kvm.kvm-redhat-enable-CONFIG_TDX.patch
+    git add -A && git commit -m "qemu-kvm.kvm-redhat-enable-CONFIG_TDX.patch"
 
     patch -p1 < ${BASEDIR}/seabios.qxl.patch
     git add -A && git commit -m "seabios.qxl.patch"
@@ -54,7 +57,7 @@ cd ~/rpmbuild/SPECS/
     patch -p1 < ${BASEDIR}/qemu-kvm.spec.patch
     git add -A && git commit -m "qemu-kvm.spec.patch"
     sudo dnf -y builddep qemu-kvm.spec
-    rpmbuild -ba --define='distsuffix _6' qemu-kvm.spec
+    rpmbuild -ba qemu-kvm.spec
 
     ### virt-manager
 
