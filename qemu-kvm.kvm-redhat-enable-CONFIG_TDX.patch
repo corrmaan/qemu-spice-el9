@@ -1,0 +1,21 @@
+diff --git a/kvm-redhat-enable-CONFIG_TDX.patch b/kvm-redhat-enable-CONFIG_TDX.patch
+index 441d61b..9fca088 100644
+--- a/kvm-redhat-enable-CONFIG_TDX.patch
++++ b/kvm-redhat-enable-CONFIG_TDX.patch
+@@ -17,13 +17,13 @@ Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+  1 file changed, 1 insertion(+)
+ 
+ diff --git a/configs/devices/x86_64-softmmu/x86_64-rh-devices.mak b/configs/devices/x86_64-softmmu/x86_64-rh-devices.mak
+-index 2b15fdc2db..6379077253 100644
++index a5c806a59..96192d1b4 100644
+ --- a/configs/devices/x86_64-softmmu/x86_64-rh-devices.mak
+ +++ b/configs/devices/x86_64-softmmu/x86_64-rh-devices.mak
+-@@ -73,6 +73,7 @@ CONFIG_SERIAL_PCI=y
+- CONFIG_SEV=y
++@@ -76,6 +76,7 @@ CONFIG_SEV=y
+  CONFIG_SMBIOS=y
+  CONFIG_SMBUS_EEPROM=y
++ CONFIG_SPICE=y
+ +CONFIG_TDX=y
+  CONFIG_TEST_DEVICES=y
+  CONFIG_USB=y
