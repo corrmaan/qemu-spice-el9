@@ -57,7 +57,7 @@ cd ~/rpmbuild/SPECS/
     patch -p1 < ${BASEDIR}/qemu-kvm.spec.patch
     git add -A && git commit -m "qemu-kvm.spec.patch"
     sudo dnf -y builddep qemu-kvm.spec
-    rpmbuild -ba qemu-kvm.spec
+    rpmbuild -ba --define='distsuffix _7' qemu-kvm.spec
 
     ### virt-manager
 
