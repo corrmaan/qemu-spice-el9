@@ -29,9 +29,6 @@ cd ~/rpmbuild/SOURCES/
     patch -p1 < ${BASEDIR}/qemu-kvm.kvm-redhat-enable-CONFIG_SPICE.patch
     git add -A && git commit -m "qemu-kvm.kvm-redhat-enable-CONFIG_SPICE.patch"
 
-    patch -p1 < ${BASEDIR}/qemu-kvm.kvm-redhat-enable-CONFIG_TDX.patch
-    git add -A && git commit -m "qemu-kvm.kvm-redhat-enable-CONFIG_TDX.patch"
-
     patch -p1 < ${BASEDIR}/seabios.qxl.patch
     git add -A && git commit -m "seabios.qxl.patch"
 
@@ -57,7 +54,7 @@ cd ~/rpmbuild/SPECS/
     patch -p1 < ${BASEDIR}/qemu-kvm.spec.patch
     git add -A && git commit -m "qemu-kvm.spec.patch"
     sudo dnf -y builddep qemu-kvm.spec
-    rpmbuild -ba --define='distsuffix _7' qemu-kvm.spec
+    rpmbuild -ba --define='distsuffix _8' qemu-kvm.spec
 
     ### virt-manager
 

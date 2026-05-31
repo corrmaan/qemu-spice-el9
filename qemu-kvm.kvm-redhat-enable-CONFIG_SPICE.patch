@@ -1,21 +1,21 @@
-diff --git a/0005-Enable-disable-devices-for-RHEL.patch b/0005-Enable-disable-devices-for-RHEL.patch
-index 0fdb361..b3de3bc 100644
---- a/0005-Enable-disable-devices-for-RHEL.patch
-+++ b/0005-Enable-disable-devices-for-RHEL.patch
-@@ -263,10 +263,10 @@ index 0000000000..24cf6dbd03
+diff --git a/0002-Enable-disable-devices-for-RHEL.patch b/0002-Enable-disable-devices-for-RHEL.patch
+index d059ca5..2b30e96 100644
+--- a/0002-Enable-disable-devices-for-RHEL.patch
++++ b/0002-Enable-disable-devices-for-RHEL.patch
+@@ -178,10 +178,10 @@ index 0000000000..834281d872
  +CONFIG_IOMMUFD=y
  diff --git a/configs/devices/x86_64-softmmu/x86_64-rh-devices.mak b/configs/devices/x86_64-softmmu/x86_64-rh-devices.mak
  new file mode 100644
--index 0000000000..3e5f693b62
-+index 000000000..a5c806a59
+-index 0000000000..8d3d9fc645
++index 000000000..4b798d3e8
  --- /dev/null
  +++ b/configs/devices/x86_64-softmmu/x86_64-rh-devices.mak
--@@ -0,0 +1,114 @@
-+@@ -0,0 +1,117 @@
+-@@ -0,0 +1,117 @@
++@@ -0,0 +1,120 @@
  +include ../rh-virtio.mak
  +
  +CONFIG_ACPI=y
-@@ -312,6 +312,7 @@ index 0000000000..3e5f693b62
+@@ -227,6 +227,7 @@ index 0000000000..8d3d9fc645
  +CONFIG_ISA_BUS=y
  +CONFIG_ISA_DEBUG=y
  +CONFIG_ISA_TESTDEV=y
@@ -23,7 +23,7 @@ index 0fdb361..b3de3bc 100644
  +CONFIG_LPC_ICH9=y
  +CONFIG_MC146818RTC=y
  +CONFIG_MEM_DEVICE=y
-@@ -334,6 +335,7 @@ index 0000000000..3e5f693b62
+@@ -250,6 +251,7 @@ index 0000000000..8d3d9fc645
  +CONFIG_PVPANIC_ISA=y
  +CONFIG_PXB=y
  +CONFIG_Q35=y
@@ -31,11 +31,11 @@ index 0fdb361..b3de3bc 100644
  +CONFIG_RTL8139_PCI=y
  +CONFIG_SCSI=y
  +CONFIG_SERIAL=y
-@@ -342,6 +344,7 @@ index 0000000000..3e5f693b62
+@@ -258,6 +260,7 @@ index 0000000000..8d3d9fc645
  +CONFIG_SEV=y
  +CONFIG_SMBIOS=y
  +CONFIG_SMBUS_EEPROM=y
 ++CONFIG_SPICE=y
+ +CONFIG_TDX=y
  +CONFIG_TEST_DEVICES=y
  +CONFIG_USB=y
- +CONFIG_USB_EHCI=y
