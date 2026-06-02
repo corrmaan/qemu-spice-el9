@@ -1,13 +1,13 @@
 diff --git a/virt-manager.spec b/virt-manager.spec
-index 4e0f10f..752fad4 100644
+index 4e0f10f..4a51150 100644
 --- a/virt-manager.spec
 +++ b/virt-manager.spec
-@@ -132,7 +132,7 @@ git commit -q -a --allow-empty --author 'rpm-build <rpm-build>' -m symlinks
+@@ -1,7 +1,7 @@
+ # -*- rpm-spec -*-
  
- %build
- %if ! %{have_spice}
--%global _default_graphics -Ddefault-graphics=vnc
-+%global _default_graphics -Ddefault-graphics=spice
- %endif
+ %global default_hvs         "qemu,xen,lxc"
+-%global have_spice          %{defined fedora}
++%global have_spice          %{defined rhel}
  
- %meson \
+ 
+ 
