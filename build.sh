@@ -11,7 +11,7 @@ DNFCHECKPOINTID=$(dnf history | head -n 3 | tail -n1 | xargs | cut -d ' ' -f 1)
 cd ${TMPDIR}
 
     dnf -y download --disablerepo=* \
-        --repofrompath="fc43,http://download.fedoraproject.org/pub/fedora/linux/releases/43/Everything/source/tree/" \
+        --repofrompath="fc44,http://download.fedoraproject.org/pub/fedora/linux/releases/44/Everything/source/tree/" \
         --source spice spice-gtk spice-protocol
     dnf -y download --disablerepo=* --enablerepo=appstream --source seavgabios-bin qemu-kvm virt-manager
 

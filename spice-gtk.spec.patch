@@ -1,5 +1,5 @@
 diff --git a/spice-gtk.spec b/spice-gtk.spec
-index 5c63fb6..e14863f 100644
+index 603eb52..4fb2694 100644
 --- a/spice-gtk.spec
 +++ b/spice-gtk.spec
 @@ -39,8 +39,10 @@ BuildRequires: polkit-devel
