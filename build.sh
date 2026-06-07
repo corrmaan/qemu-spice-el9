@@ -1,19 +1,36 @@
 #!/usr/bin/env bash
 set -e
 
-rpmdev-setuptree
-rpmdev-wipetree
-
 BASEDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 TMPDIR=$(mktemp -d)
+TMPREPO=$(mktemp --suffix=.repo)
 DNFCHECKPOINTID=$(dnf history | head -n 3 | tail -n1 | xargs | cut -d ' ' -f 1)
+REPODIR="/etc/yum.repos.d"
+
+rpmdev-setuptree
+rpmdev-wipetree
+createrepo ~/rpmbuild/RPMS/
+
+cat << EOF > ${TMPREPO}
+[tmp]
+name=Temporary Repository
+baseurl=file://${HOME}/rpmbuild/RPMS
+enabled=1
+gpgcheck=0
+priority=1
+EOF
+
+sudo cp -av ${TMPREPO} ${REPODIR}/$(basename ${TMPREPO})
+sudo chmod -v --reference=${REPODIR}/epel.repo ${REPODIR}/$(basename ${TMPREPO})
+sudo chown -v --reference=${REPODIR}/epel.repo ${REPODIR}/$(basename ${TMPREPO})
 
 cd ${TMPDIR}
+
+    dnf -y download --disablerepo=* --enablerepo=appstream --source seavgabios-bin qemu-kvm virt-manager
 
     dnf -y download --disablerepo=* \
         --repofrompath="fc44,http://download.fedoraproject.org/pub/fedora/linux/releases/44/Everything/source/tree/" \
         --source spice spice-gtk spice-protocol
-    dnf -y download --disablerepo=* --enablerepo=appstream --source seavgabios-bin qemu-kvm virt-manager
 
     rpm -ivh *.src.rpm
 
@@ -37,46 +54,46 @@ cd ~/rpmbuild/SPECS/
 
     ### qemu-kvm
 
-    sudo dnf -y builddep spice-protocol.spec
+    sudo dnf -y --refresh builddep spice-protocol.spec
     rpmbuild -ba spice-protocol.spec
-    sudo dnf -y install \
-        ~/rpmbuild/RPMS/noarch/spice-protocol-*.rpm
+    createrepo ~/rpmbuild/RPMS/
 
-    sudo dnf -y builddep spice.spec
+    sudo dnf -y --refresh builddep spice.spec
     rpmbuild -ba spice.spec
-    sudo dnf -y install \
-        ~/rpmbuild/RPMS/x86_64/spice-server-0.*.rpm \
-        ~/rpmbuild/RPMS/x86_64/spice-server-devel-0.*.rpm
+    createrepo ~/rpmbuild/RPMS/
 
     patch -p1 < ${BASEDIR}/qemu-kvm.spec.patch
     git add -A && git commit -m "qemu-kvm.spec.patch"
-    sudo dnf -y builddep qemu-kvm.spec
+    sudo dnf -y --refresh builddep qemu-kvm.spec
     rpmbuild -ba --define='distsuffix _8' qemu-kvm.spec
+    createrepo ~/rpmbuild/RPMS/
 
     ### virt-manager
 
     patch -p1 < ${BASEDIR}/spice-gtk.spec.patch
     git add -A && git commit -m "spice-gtk.spec.patch"
-    sudo dnf -y builddep spice-gtk.spec
+    sudo dnf -y --refresh builddep spice-gtk.spec
     rpmbuild -ba spice-gtk.spec
+    createrepo ~/rpmbuild/RPMS/
 
     patch -p1 < ${BASEDIR}/virt-manager.spec.patch
     git add -A && git commit -m "virt-manager.spec.patch"
-    sudo dnf -y builddep virt-manager.spec
+    sudo dnf -y --refresh builddep virt-manager.spec
     rpmbuild -ba virt-manager.spec
+    createrepo ~/rpmbuild/RPMS/
 
     ### seabios
 
     patch -p1 < ${BASEDIR}/seabios.spec.patch
     git add -A && git commit -m "seabios.spec.patch"
-    sudo dnf -y builddep seabios.spec
+    sudo dnf -y --refresh builddep seabios.spec
     rpmbuild -ba seabios.spec
+    createrepo ~/rpmbuild/RPMS/
 
 cd -
 
+createrepo ~/rpmbuild/SRPMS/
+
 sudo dnf -y history rollback ${DNFCHECKPOINTID}
 
-rm -rfv ${TMPDIR}
-
-createrepo ~/rpmbuild/RPMS/
-createrepo ~/rpmbuild/SRPMS/
+rm -rfv ${TMPREPO} ${TMPDIR}
