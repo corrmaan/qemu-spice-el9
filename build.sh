@@ -100,3 +100,4 @@ createrepo ~/rpmbuild/SRPMS/
 sudo dnf -y history rollback ${DNFCHECKPOINTID}
 
 rm -rfv ${TMPREPO} ${TMPDIR}
+sudo rm -rfv ${REPODIR}/$(basename ${TMPREPO})
