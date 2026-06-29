@@ -31,7 +31,8 @@ cd ${TMPDIR}
     rm -rfv $(ls -1 qemu-kvm-*.src.rpm | tail -n 1)
 
     dnf -y download --disablerepo=* \
-        --repofrompath="fc44,http://download.fedoraproject.org/pub/fedora/linux/releases/44/Everything/source/tree/" \
+        --repofrompath="fc44releases,http://download.fedoraproject.org/pub/fedora/linux/releases/44/Everything/source/tree/" \
+        --repofrompath="fc44updates,http://download.fedoraproject.org/pub/fedora/linux/updates/44/Everything/source/tree/" \
         --source spice spice-gtk spice-protocol
 
     rpm -ivh *.src.rpm
