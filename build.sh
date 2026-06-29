@@ -28,7 +28,7 @@ cd ${TMPDIR}
 
     dnf -y download --disablerepo=* --enablerepo=appstream --source seavgabios-bin qemu-kvm virt-manager
 
-    rm -rfv $(ls -1 qemu-kvm-*.src.rpm | tail -n 1)
+    [ "$(ls -A qemu-kvm-*.src.rpm | wc -l)" -gt 1 ] && rm -rfv $(ls -1 qemu-kvm-*.src.rpm | tail -n 1)
 
     dnf -y download --disablerepo=* \
         --repofrompath="fc44releases,http://download.fedoraproject.org/pub/fedora/linux/releases/44/Everything/source/tree/" \
